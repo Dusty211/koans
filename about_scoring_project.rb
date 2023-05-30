@@ -30,6 +30,25 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
+  score = 0
+  string_scores = dice.sort.join("")
+  if string_scores.slice!(/111/)
+    score += 1000
+  end
+  triples = string_scores.slice!(/222|333|444|555|666/)
+  if triples
+    multiplier = triples[0].to_i
+    score += (100 * multiplier)
+  end
+  string_scores.each_char do |char|
+    if char == "1"
+      score += 100
+    end
+    if char == "5"
+      score += 50
+    end
+  end
+  return score
   # You need to write this method
 end
 
